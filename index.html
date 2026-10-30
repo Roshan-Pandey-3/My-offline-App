@@ -4124,9 +4124,7 @@ function ensureEntry(iso) {
       gratitude: ['', '', ''],
       tags: [], updated: null
     };
-    function getEntry(iso) {
-    return state.journal[iso] || null;
-    }
+
   }
   const e = state.journal[iso];
   if (!Array.isArray(e.gratitude)) e.gratitude = ['', '', ''];
@@ -4134,6 +4132,10 @@ function ensureEntry(iso) {
   if (!Array.isArray(e.tags)) e.tags = [];
   return e;
 }
+  function getEntry(iso) {
+  return state.journal[iso] || null;
+}
+  
 function showSaveIndicator() {
   const el = document.getElementById('saveIndicator');
   if (!el) return;
