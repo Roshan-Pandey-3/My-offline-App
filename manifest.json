@@ -1,0 +1,29 @@
+{
+  "name": "Writing Palace",
+  "short_name": "Writing Palace",
+  "description": "Planner, journal, learning, trading, challenges — all offline, all yours.",
+  "id": "/",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "theme_color": "#6f8163",
+  "background_color": "#f7f4ee",
+  "lang": "en",
+  "categories": ["productivity", "lifestyle"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
