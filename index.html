@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Writing Palace — Planner, Journal, Learning, Trading</title>
+<title>RoshanOS — Giving Direction to Life</title>
 <!-- ============ PWA ============ -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#6f8163" media="(prefers-color-scheme: light)">
@@ -11,7 +11,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Writing Palace">
+<meta name="apple-mobile-web-app-title" content="RoshanOS">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -832,6 +832,22 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
 .emoji-picker button.active { border-color: var(--accent); background: var(--accent-soft); }
 
 /* ============ JOURNAL ============ */
+.journal-section-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 22px; margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.journal-section-card h3 {
+  font-family: 'Fraunces', Georgia, serif; font-size: 18px; font-weight: 600;
+  margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line-soft);
+  color: var(--accent-ink);
+}
+.journal-q { margin-bottom: 16px; }
+.journal-q > label { display: block; font-size: 13.5px; font-weight: 500; margin-bottom: 6px; color: var(--ink); }
+.journal-q textarea {
+  min-height: 44px; resize: none; overflow: hidden;
+  font-size: 14px; line-height: 1.5;
+}
 .journal-shell { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 860px; margin: 0 auto; }
 .date-nav { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
 .date-nav input[type="date"] { width: auto; flex: 0 0 auto; }
@@ -852,6 +868,23 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
 .save-indicator { font-size: 12.5px; color: var(--ink-faint); display: flex; align-items: center; gap: 6px; transition: opacity .3s ease; opacity: 0; }
 .save-indicator.show { opacity: 1; }
 .save-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.journal-view-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: var(--accent-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--accent-ink);
+  margin-bottom: 16px;
+}
+.journal-view-banner button {
+  margin-left: auto;
+  font-size: 12.5px;
+  padding: 6px 12px;
+}
 
 /* ============ REVIEW ============ */
 .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -947,6 +980,150 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
   .rich-toolbar .tb { width: 28px; height: 28px; }
   .trade-card { flex-direction: column; }
 }
+/* ============ REMINDERS ============ */
+.reminder-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 11px 12px; border-radius: 11px;
+  background: var(--surface-2); border: 1px solid var(--line-soft);
+  margin-bottom: 8px; transition: border-color .15s ease;
+}
+.reminder-item.overdue { border-left: 3px solid var(--red); }
+.reminder-item.due-today { border-left: 3px solid var(--gold); }
+.reminder-item.upcoming { border-left: 3px solid var(--line); }
+.reminder-item.completed { opacity: .55; }
+.reminder-item.completed .reminder-title { text-decoration: line-through; }
+.reminder-check {
+  width: 20px; height: 20px; border-radius: 6px;
+  border: 1.5px solid var(--line); background: var(--surface);
+  cursor: pointer; flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s ease; font-size: 12px; color: transparent;
+}
+.reminder-check:hover { border-color: var(--accent); }
+.reminder-check.checked { background: var(--accent); border-color: var(--accent); color: #fff; }
+.reminder-body { flex: 1; min-width: 0; }
+.reminder-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 3px; }
+.reminder-title { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.reminder-chip {
+  font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .06em; padding: 2px 8px; border-radius: 999px; flex-shrink: 0;
+}
+.reminder-chip.overdue { background: var(--red-soft); color: var(--red); }
+.reminder-chip.today { background: var(--gold-soft); color: var(--gold); }
+.reminder-chip.tomorrow { background: var(--accent-soft); color: var(--accent-ink); }
+.reminder-chip.upcoming { background: var(--surface-2); color: var(--ink-faint); border: 1px solid var(--line); }
+.reminder-chip.category { background: var(--accent-soft); color: var(--accent-ink); }
+.reminder-due { font-size: 12.5px; color: var(--ink-soft); }
+.reminder-notes { font-size: 13px; color: var(--ink-soft); line-height: 1.45; margin-top: 4px; }
+.reminder-actions { display: flex; gap: 6px; margin-top: 6px; }
+.reminder-actions button { font-size: 12px; padding: 4px 10px; }
+.reminders-group-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .11em;
+  font-weight: 600; color: var(--ink-faint); margin: 14px 0 8px;
+}
+.reminders-group-label:first-child { margin-top: 0; }
+.reminders-group-label.overdue { color: var(--red); }
+
+/* ============ HABITS ============ */
+.habit-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 12px; border-radius: 11px;
+  background: var(--surface-2); border: 1px solid var(--line-soft);
+  margin-bottom: 8px; transition: all .15s ease;
+}
+.habit-item.done { opacity: .6; }
+.habit-item.done .habit-title { text-decoration: line-through; }
+.habit-check {
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 1.5px solid var(--line); background: var(--surface);
+  cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: transparent;
+  transition: all .15s ease;
+}
+.habit-check:hover { transform: scale(1.08); }
+.habit-check.checked { color: #fff; border-color: transparent; }
+.habit-body { flex: 1; min-width: 0; }
+.habit-title { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.habit-meta { font-size: 11.5px; color: var(--ink-faint); margin-top: 2px; }
+.habit-streak {
+  font-size: 12px; font-weight: 600; color: var(--gold);
+  display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0;
+}
+.habits-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.habit-week-header {
+  display: grid;
+  grid-template-columns: minmax(160px, 1.6fr) repeat(7, 1fr) minmax(80px, .8fr);
+  gap: 8px; padding: 0 16px; margin-bottom: 8px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+  font-weight: 600; color: var(--ink-faint); text-align: center;
+}
+.habit-week-header .day-label { padding: 4px 0; }
+.habit-weekly-row {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 14px 16px;
+  display: grid;
+  grid-template-columns: minmax(160px, 1.6fr) repeat(7, 1fr) minmax(80px, .8fr);
+  align-items: center; gap: 8px;
+}
+.habit-weekly-row .habit-title-cell { display: flex; flex-direction: column; gap: 2px; }
+.habit-weekly-row .habit-title-cell .title { font-size: 14px; font-weight: 600; color: var(--ink); }
+.habit-weekly-row .habit-title-cell .freq { font-size: 11.5px; color: var(--ink-faint); }
+.habit-day-cell {
+  aspect-ratio: 1; border-radius: 8px;
+  border: 1.5px solid var(--line-soft);
+  background: var(--surface-2); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600; color: var(--ink-faint);
+  transition: all .15s ease; min-height: 30px;
+}
+.habit-day-cell:hover { border-color: var(--accent); }
+.habit-day-cell.done { color: #fff; border-color: transparent; }
+.habit-day-cell.future { opacity: .35; cursor: not-allowed; }
+.habit-day-cell.today { box-shadow: 0 0 0 2px var(--accent); }
+.habit-weekly-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; text-align: right; }
+.habit-weekly-stat .num { font-family: 'Fraunces', Georgia, serif; font-size: 15px; font-weight: 600; }
+.habit-weekly-stat .label { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-faint); }
+@media (max-width: 860px) {
+  .habit-weekly-row, .habit-week-header { grid-template-columns: minmax(120px, 1.5fr) repeat(7, 1fr); }
+  .habit-weekly-stat { display: none; }
+}
+
+/* ============ CHALLENGE RULES ============ */
+.challenge-rules {
+  background: var(--surface-2); border: 1px solid var(--line-soft);
+  border-radius: 11px; padding: 12px 14px; margin-top: 4px;
+}
+.challenge-rules-title {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+  font-weight: 600; color: var(--ink-faint); margin-bottom: 8px;
+}
+.challenge-rule {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 4px; border-radius: 8px;
+  cursor: pointer; transition: background .15s ease;
+}
+.challenge-rule:hover { background: var(--surface); }
+.challenge-rule input[type="checkbox"] {
+  width: 17px; height: 17px; accent-color: var(--accent);
+  cursor: pointer; flex-shrink: 0;
+}
+.challenge-rule .rule-label { font-size: 13px; line-height: 1.4; color: var(--ink); flex: 1; }
+.challenge-rule.dont .rule-label::before { content: '✕ '; color: var(--red); font-weight: 700; }
+.challenge-rule.do .rule-label::before { content: '✓ '; color: var(--green); font-weight: 700; }
+.challenge-rule-progress {
+  font-size: 12px; color: var(--ink-soft);
+  margin-top: 8px; padding-top: 8px;
+  border-top: 1px dashed var(--line-soft); text-align: center;
+}
+.challenge-day.partial { background: var(--gold-soft); border-color: var(--gold); color: var(--gold); }
+.challenge-rule-input-row { display: flex; gap: 6px; margin-bottom: 6px; }
+.challenge-rule-input-row input { flex: 1; }
+.challenge-rule-input-row button {
+  padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line);
+  background: transparent; color: var(--ink-faint); font-size: 16px; line-height: 1;
+}
+.challenge-rule-input-row button:hover { color: var(--red); border-color: var(--red); }
 </style>
 </head>
 <body>
@@ -954,11 +1131,15 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
 <header class="app-header">
   <div class="header-inner">
     <div class="brand">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
-      </svg>
-      Writing Palace
-    </div>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+  </svg>
+  <span style="display:flex;flex-direction:column;line-height:1.05">
+    <span>RoshanOS</span>
+    <span style="font-family:'Inter',sans-serif;font-size:9.5px;color:var(--ink-faint);font-weight:500;letter-spacing:.02em;text-transform:none">giving direction to life</span>
+  </span>
+  </div>
 
     <nav class="tabs" id="tabs">
       <button class="tab active" data-tab="today">
@@ -972,6 +1153,14 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
       <button class="tab" data-tab="fixes">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.7 1.8L21.5 17.5l-1.8.7L19 20l-.7-1.8L16.5 17.5l1.8-.7L19 15z"/></svg>
         <span class="tab-label">Fixes</span>
+      </button>
+            <button class="tab" data-tab="reminders">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="tab-label">Reminders</span>
+      </button>
+      <button class="tab" data-tab="habits">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+        <span class="tab-label">Habits</span>
       </button>
       <button class="tab" data-tab="journal">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -1029,6 +1218,27 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
         </button>
       </div>
     </div>
+        <div class="card" style="margin-bottom:22px" id="todayRemindersCard">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div>
+          <h2>Reminders</h2>
+          <p class="sub" style="margin-bottom:0">Things with a deadline.</p>
+        </div>
+        <button class="ghost" onclick="openReminderModal()">+ Add reminder</button>
+      </div>
+      <div id="todayReminders" style="margin-top:14px"></div>
+    </div>
+
+    <div class="card" style="margin-bottom:22px" id="todayHabitsCard">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div>
+          <h2>Today's habits</h2>
+          <p class="sub" style="margin-bottom:0">Small daily rituals.</p>
+        </div>
+        <button class="ghost" onclick="switchTo('habits')">Manage →</button>
+      </div>
+      <div id="todayHabits" style="margin-top:14px"></div>
+    </div>
 
     <div class="card" style="margin-bottom:22px">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
@@ -1056,45 +1266,26 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
   </div>
   <div id="todayChallenges" style="margin-top:16px"></div>
 </div>
-    <div class="grid-2">
-      <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px">
-          <h2 id="todayDayName">Monday</h2>
-          <span class="day-badge" id="todaySource" style="display:none">Customized</span>
-        </div>
-        <p class="sub">Your focus & routine for today</p>
+    <div class="card" style="margin-bottom:22px">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px">
+    <h2 id="todayDayName">Monday</h2>
+    <span class="day-badge" id="todaySource" style="display:none">Customized</span>
+  </div>
+  <p class="sub">Your focus & routine for today</p>
 
-        <div class="field" style="margin-bottom:14px">
-          <label style="font-size:11.5px;text-transform:uppercase;letter-spacing:.11em;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:7px">Focus</label>
-          <input id="todayFocus" placeholder="What matters most today?" oninput="saveTodayFocus(this.value)">
-        </div>
+  <div class="field" style="margin-bottom:14px">
+    <label style="font-size:11.5px;text-transform:uppercase;letter-spacing:.11em;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:7px">Focus</label>
+    <input id="todayFocus" placeholder="What matters most today?" oninput="saveTodayFocus(this.value)">
+  </div>
 
-        <div class="field" style="margin-bottom:6px">
-          <label style="font-size:11.5px;text-transform:uppercase;letter-spacing:.11em;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:7px">Routine</label>
-        </div>
-        <div id="todayChecklist" class="checklist"></div>
-        <div style="margin-top:12px">
-          <button class="ghost" onclick="switchTo('week')">Edit recurring plan →</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Quick check-in</h2>
-        <p class="sub">How are you arriving today?</p>
-
-        <div class="field">
-          <label style="font-size:11.5px;text-transform:uppercase;letter-spacing:.11em;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:7px">Mood</label>
-          <div class="mood-row" id="todayMoodRow"></div>
-        </div>
-
-        <div class="field">
-          <label style="font-size:11.5px;text-transform:uppercase;letter-spacing:.11em;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:7px">A line about today</label>
-          <div id="todayFeltHost"></div>
-        </div>
-
-        <button class="primary" onclick="openJournalForToday()">Open full journal entry →</button>
-      </div>
-    </div>
+  <div class="field" style="margin-bottom:6px">
+    <label style="font-size:11.5px;text-transform:uppercase;letter-spacing:.11em;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:7px">Routine</label>
+  </div>
+  <div id="todayChecklist" class="checklist"></div>
+  <div style="margin-top:12px">
+    <button class="ghost" onclick="switchTo('week')">Edit recurring plan →</button>
+  </div>
+</div>
 
     <div class="mini-learning-row">
       <div class="mini-card">
@@ -1178,6 +1369,34 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
       </div>
     </div>
     <div class="fixes-grid" id="fixesGrid"></div>
+  </section>
+   <!-- ============ REMINDERS ============ -->
+  <section id="reminders" class="section">
+    <div class="section-head">
+      <div>
+        <h1>Reminders</h1>
+        <p>Everything with a deadline, in one place.</p>
+      </div>
+      <div class="section-actions">
+        <button class="primary" onclick="openReminderModal()">+ New reminder</button>
+      </div>
+    </div>
+    <div id="remindersList"></div>
+  </section>
+
+  <!-- ============ HABITS ============ -->
+  <section id="habits" class="section">
+    <div class="section-head">
+      <div>
+        <h1>Habits</h1>
+        <p>Daily rituals, tracked honestly.</p>
+      </div>
+      <div class="section-actions">
+        <button class="primary" onclick="openHabitModal()">+ New habit</button>
+      </div>
+    </div>
+    <div class="habit-week-header" id="habitWeekHeader"></div>
+    <div class="habits-grid" id="habitsGrid"></div>
   </section>
 
   <!-- ============ TRADING ============ -->
@@ -1300,62 +1519,191 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
         <button class="ghost" onclick="goToday()">Today</button>
         <span class="date-display" id="journalDayLabel"></span>
       </div>
-
-      <div class="card">
-        <div class="field">
-          <label>Mood</label>
-          <div class="mood-row" id="journalMoodRow"></div>
-        </div>
-
-        <div class="field">
-          <label>Energy</label>
-          <div class="mood-row" id="energyRow"></div>
-        </div>
-
-        <div class="field">
-          <label>How I felt</label>
-          <p class="prompt-hint">Name the emotion. Where did you feel it in your body?</p>
-          <div id="jFeltHost"></div>
-        </div>
-
-        <div class="field">
-          <label>What important happened</label>
-          <p class="prompt-hint">Moments, conversations, small wins, unexpected things.</p>
-          <div id="jHappenedHost"></div>
-        </div>
-
-        <div class="field">
-          <label>What I learned</label>
-          <p class="prompt-hint">About yourself, your work, your relationships, the world.</p>
-          <div id="jLearnedHost"></div>
-        </div>
-
-        <div class="field">
-          <label>Gratitude</label>
-          <p class="prompt-hint">Three small things worth keeping.</p>
-          <div class="gratitude-list">
-            <div class="gratitude-item"><span class="gratitude-num">1</span><input id="g1" placeholder="I'm grateful for…" oninput="saveGratitude(0, this.value)"></div>
-            <div class="gratitude-item"><span class="gratitude-num">2</span><input id="g2" placeholder="I'm grateful for…" oninput="saveGratitude(1, this.value)"></div>
-            <div class="gratitude-item"><span class="gratitude-num">3</span><input id="g3" placeholder="I'm grateful for…" oninput="saveGratitude(2, this.value)"></div>
-          </div>
-        </div>
-
-        <div class="field" style="margin-bottom:0">
-          <label>Tags</label>
-          <div class="tag-input-wrap" id="tagWrap">
-            <input id="tagInput" placeholder="Add a tag and press Enter" style="flex:1;min-width:180px" onkeydown="handleTagKey(event)">
-          </div>
-        </div>
+       <div class="journal-view-banner" id="journalViewBanner" style="display:none">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Viewing saved entry — only answered questions are shown
+        <button onclick="setJournalViewMode('edit')">Edit entry</button>
       </div>
+      <div class="journal-section-card">
+  <h3>1. Emotional Check-in</h3>
+  <div class="field">
+    <label>Mood</label>
+    <div class="mood-row" id="journalMoodRow"></div>
+  </div>
+  <div class="trade-grid-2" style="margin-bottom:16px">
+    <div class="field" style="margin-bottom:0">
+      <label>Energy (1-5)</label>
+      <div class="mood-row" id="energyRow"></div>
+    </div>
+    <div class="field" style="margin-bottom:0">
+      <label>Stress (1-5)</label>
+      <div class="mood-row" id="stressRow"></div>
+    </div>
+  </div>
+  <div class="journal-q">
+    <label>How am I feeling today?</label>
+    <textarea id="jEmotionFeeling" oninput="saveJournalField('emotionFeeling', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>What emotion was strongest today?</label>
+    <textarea id="jEmotionStrongest" oninput="saveJournalField('emotionStrongest', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q" style="margin-bottom:0">
+    <label>Is there something weighing on my mind?</label>
+    <textarea id="jWeighingMind" oninput="saveJournalField('weighingMind', this.value); autoResize(this)"></textarea>
+  </div>
+</div>
+
+<div class="journal-section-card">
+  <h3>2. Today's Experience</h3>
+  <div class="journal-q">
+    <label>What were the three most important things that happened today?</label>
+    <textarea id="jExpImportant" oninput="saveJournalField('expImportant', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>What was the best moment of my day?</label>
+    <textarea id="jExpBest" oninput="saveJournalField('expBest', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>Was there a difficult or uncomfortable moment?</label>
+    <textarea id="jExpDifficult" oninput="saveJournalField('expDifficult', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>Did I do something today that made me proud?</label>
+    <textarea id="jExpProud" oninput="saveJournalField('expProud', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q" style="margin-bottom:0">
+    <label>If I could remember only one moment from today, what would it be?</label>
+    <textarea id="jExpOneMoment" oninput="saveJournalField('expOneMoment', this.value); autoResize(this)"></textarea>
+  </div>
+</div>
+
+<div class="journal-section-card">
+  <h3>3. Self-Awareness</h3>
+  <div class="journal-q">
+    <label>What did I learn about myself today?</label>
+    <textarea id="jAwareLearned" oninput="saveJournalField('awareLearned', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>Did I react to situations the way I wanted to?</label>
+    <textarea id="jAwareReacted" oninput="saveJournalField('awareReacted', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>What thought occupied my mind the most?</label>
+    <textarea id="jAwareThought" oninput="saveJournalField('awareThought', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>Is there anything I am avoiding?</label>
+    <textarea id="jAwareAvoiding" oninput="saveJournalField('awareAvoiding', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q" style="margin-bottom:0">
+    <label>What do I need to understand about myself?</label>
+    <textarea id="jAwareUnderstand" oninput="saveJournalField('awareUnderstand', this.value); autoResize(this)"></textarea>
+  </div>
+</div>
+
+<div class="journal-section-card">
+  <h3>4. Growth and Progress</h3>
+  <div class="journal-q">
+    <label>What meaningful progress did I make today?</label>
+    <textarea id="jGrowthProgress" oninput="saveJournalField('growthProgress', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>Did I spend time on something important for my future?</label>
+    <textarea id="jGrowthFuture" oninput="saveJournalField('growthFuture', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>What could I have done better?</label>
+    <textarea id="jGrowthBetter" oninput="saveJournalField('growthBetter', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>What is one thing I want to improve tomorrow?</label>
+    <textarea id="jGrowthImprove" oninput="saveJournalField('growthImprove', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q" style="margin-bottom:0">
+    <label>Am I moving closer to the person I want to become?</label>
+    <textarea id="jGrowthBecoming" oninput="saveJournalField('growthBecoming', this.value); autoResize(this)"></textarea>
+  </div>
+</div>
+
+<div class="journal-section-card">
+  <h3>5. Gratitude</h3>
+  <div class="gratitude-list" style="margin-bottom:16px">
+    <div class="gratitude-item"><span class="gratitude-num">1</span><input id="g1" placeholder="I'm grateful for…" oninput="saveGratitude(0, this.value)"></div>
+    <div class="gratitude-item"><span class="gratitude-num">2</span><input id="g2" placeholder="I'm grateful for…" oninput="saveGratitude(1, this.value)"></div>
+    <div class="gratitude-item"><span class="gratitude-num">3</span><input id="g3" placeholder="I'm grateful for…" oninput="saveGratitude(2, this.value)"></div>
+  </div>
+  <div class="journal-q">
+    <label>Who made my day a little better?</label>
+    <textarea id="jGratBetter" oninput="saveJournalField('gratBetter', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>What ordinary thing did I enjoy today?</label>
+    <textarea id="jGratOrdinary" oninput="saveJournalField('gratOrdinary', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q" style="margin-bottom:0">
+    <label>What is something I have today that I once wished for?</label>
+    <textarea id="jGratWished" oninput="saveJournalField('gratWished', this.value); autoResize(this)"></textarea>
+  </div>
+</div>
+
+<div class="journal-section-card">
+  <h3>6. Letting Go</h3>
+  <div class="journal-q">
+    <label>What am I overthinking?</label>
+    <textarea id="jLetOver" oninput="saveJournalField('letOver', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>Is there something I need to forgive myself for?</label>
+    <textarea id="jLetForgive" oninput="saveJournalField('letForgive', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>What do I need to stop worrying about tonight?</label>
+    <textarea id="jLetWorry" oninput="saveJournalField('letWorry', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>What is something outside my control that I need to accept?</label>
+    <textarea id="jLetAccept" oninput="saveJournalField('letAccept', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q" style="margin-bottom:0">
+    <label>What do I want to leave behind today?</label>
+    <textarea id="jLetLeave" oninput="saveJournalField('letLeave', this.value); autoResize(this)"></textarea>
+  </div>
+</div>
+
+<div class="journal-section-card">
+  <h3>7. Tomorrow's Intention</h3>
+  <div class="journal-q">
+    <label>What is the most important thing I want to accomplish tomorrow?</label>
+    <textarea id="jIntentAccomplish" oninput="saveJournalField('intentAccomplish', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>How do I want to feel tomorrow?</label>
+    <textarea id="jIntentFeel" oninput="saveJournalField('intentFeel', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q">
+    <label>What is one promise I want to keep to myself?</label>
+    <textarea id="jIntentPromise" oninput="saveJournalField('intentPromise', this.value); autoResize(this)"></textarea>
+  </div>
+  <div class="journal-q" style="margin-bottom:0">
+    <label>What is one small action that would make tomorrow better?</label>
+    <textarea id="jIntentAction" oninput="saveJournalField('intentAction', this.value); autoResize(this)"></textarea>
+  </div>
+</div>
+
+<div class="journal-section-card">
+  <h3>Things on My Mind</h3>
+  <p class="prompt-hint" style="margin-bottom:10px">Write whatever is on your mind. No structure, no judgment, no need to make sense.</p>
+  <textarea id="jMindFreewrite" style="min-height:150px;" oninput="saveJournalField('mindFreewrite', this.value); autoResize(this)"></textarea>
+</div>
 
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="primary" onclick="saveJournalNow()">Save entry</button>
-        <button onclick="printJournal()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-          Print entry
-        </button>
-        <button class="danger" onclick="deleteCurrentJournal()">Delete entry</button>
-      </div>
+       <button class="primary" onclick="saveJournalNow()">Save entry</button>
+<button onclick="printJournal()">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+  Save as PDF
+</button>
+<button class="danger" onclick="deleteCurrentJournal()">Delete entry</button></div>
     </div>
   </section>
 
@@ -1374,27 +1722,31 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
     </div>
 
     <div class="review-grid">
-      <div class="review-card">
-        <h3>Wins</h3>
-        <p class="hint">What went well? What are you proud of?</p>
-        <div id="rWinsHost"></div>
-      </div>
-      <div class="review-card">
-        <h3>Challenges</h3>
-        <p class="hint">What was hard? What drained you?</p>
-        <div id="rChallengesHost"></div>
-      </div>
-      <div class="review-card">
-        <h3>Lessons</h3>
-        <p class="hint">What will you carry forward?</p>
-        <div id="rLessonsHost"></div>
-      </div>
-      <div class="review-card">
-        <h3>Intentions for next week</h3>
-        <p class="hint">One or two things you want to nurture.</p>
-        <div id="rIntentionsHost"></div>
-      </div>
-    </div>
+  <div class="review-card">
+    <h3>What was the best thing about this week?</h3>
+    <div id="rBestHost"></div>
+  </div>
+  <div class="review-card">
+    <h3>What challenged me the most?</h3>
+    <div id="rChallengedHost"></div>
+  </div>
+  <div class="review-card">
+    <h3>What did I accomplish?</h3>
+    <div id="rAccomplishedHost"></div>
+  </div>
+  <div class="review-card">
+    <h3>What patterns did I notice in my mood and energy?</h3>
+    <div id="rPatternsHost"></div>
+  </div>
+  <div class="review-card">
+    <h3>What did I neglect?</h3>
+    <div id="rNeglectedHost"></div>
+  </div>
+  <div class="review-card">
+    <h3>What should I focus on next week?</h3>
+    <div id="rFocusNextHost"></div>
+  </div>
+</div>
   </section>
 
   <!-- ============ ARCHIVE ============ -->
@@ -1621,6 +1973,104 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
     </div>
   </div>
 </div>
+<!-- ============ REMINDER MODAL ============ -->
+<div class="modal" id="reminderModal">
+  <div class="modal-box">
+    <h2 id="reminderModalTitle">New reminder</h2>
+    <p class="modal-sub">What do you need to remember?</p>
+    <div class="settings-group">
+      <label>Title</label>
+      <input id="reminderTitle" maxlength="100" placeholder="e.g. Submit Physics assignment">
+    </div>
+    <div class="trade-grid-2">
+      <div class="settings-group">
+        <label>Due date</label>
+        <input type="date" id="reminderDate">
+      </div>
+      <div class="settings-group">
+        <label>Time (optional)</label>
+        <input type="time" id="reminderTime">
+      </div>
+    </div>
+    <div class="trade-grid-2">
+      <div class="settings-group">
+        <label>Category</label>
+        <select id="reminderCategory">
+          <option value="">None</option>
+          <option value="assignment">Assignment</option>
+          <option value="bill">Bill</option>
+          <option value="meeting">Meeting</option>
+          <option value="personal">Personal</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="settings-group">
+        <label>Repeat</label>
+        <select id="reminderRecurring">
+          <option value="never">Never</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+          <option value="quarterly">Every 3 months</option>
+        </select>
+      </div>
+    </div>
+    <div class="settings-group">
+      <label>Notes (optional)</label>
+      <textarea id="reminderNotes" rows="3" placeholder="Any details…"></textarea>
+    </div>
+    <div class="modal-actions" style="justify-content:space-between">
+      <button class="ghost danger" id="reminderDeleteBtn" style="display:none" onclick="deleteReminder()">Delete</button>
+      <div style="display:flex;gap:8px;margin-left:auto">
+        <button class="ghost" onclick="closeReminderModal()">Cancel</button>
+        <button class="primary" onclick="saveReminder()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HABIT MODAL ============ -->
+<div class="modal" id="habitModal">
+  <div class="modal-box">
+    <h2 id="habitModalTitle">New habit</h2>
+    <p class="modal-sub">A small daily ritual.</p>
+    <div class="settings-group">
+      <label>Title</label>
+      <input id="habitTitle" maxlength="80" placeholder="e.g. Meditate 10 minutes">
+    </div>
+    <div class="settings-group">
+      <label>Description (optional)</label>
+      <input id="habitDesc" maxlength="200" placeholder="Short note">
+    </div>
+    <div class="settings-group">
+      <label>Frequency</label>
+      <select id="habitFrequency" onchange="updateHabitFreqUI()">
+        <option value="daily">Every day</option>
+        <option value="weekly">X times per week</option>
+        <option value="specific">Specific days</option>
+      </select>
+    </div>
+    <div class="settings-group" id="habitWeeklyGroup" style="display:none">
+      <label>Target per week</label>
+      <input type="number" id="habitTarget" value="5" min="1" max="7">
+    </div>
+    <div class="settings-group" id="habitSpecificGroup" style="display:none">
+      <label>Days</label>
+      <div class="day-picker" id="habitDayPicker"></div>
+    </div>
+    <div class="settings-group">
+      <label>Color</label>
+      <div class="color-picker" id="habitColorPicker"></div>
+    </div>
+    <div class="modal-actions" style="justify-content:space-between">
+      <button class="ghost danger" id="habitDeleteBtn" style="display:none" onclick="deleteHabit()">Archive habit</button>
+      <div style="display:flex;gap:8px;margin-left:auto">
+        <button class="ghost" onclick="closeHabitModal()">Cancel</button>
+        <button class="primary" onclick="saveHabit()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ============ CHALLENGE MODAL ============ -->
 <div class="modal" id="challengeModal">
   <div class="modal-box">
@@ -1652,7 +2102,17 @@ main { max-width: 1180px; margin: 0 auto; padding: 32px 22px 80px; }
       <label>Color</label>
       <div class="color-picker" id="challengeColorPicker"></div>
     </div>
+    <div class="settings-group">
+      <label>Do's (all must be checked to complete a day)</label>
+      <div id="challengeDosList"></div>
+      <button type="button" class="ghost" style="margin-top:6px;font-size:12.5px;padding:5px 10px" onclick="addChallengeRule('do')">+ Add a Do</button>
+    </div>
 
+    <div class="settings-group">
+      <label>Don'ts (checked when you avoid them)</label>
+      <div id="challengeDontsList"></div>
+      <button type="button" class="ghost" style="margin-top:6px;font-size:12.5px;padding:5px 10px" onclick="addChallengeRule('dont')">+ Add a Don't</button>
+    </div>
     <div class="modal-actions" style="justify-content:space-between">
       <button class="ghost danger" id="challengeDeleteBtn" style="display:none" onclick="deleteChallenge()">Delete challenge</button>
       <div style="display:flex;gap:8px;margin-left:auto">
@@ -1849,7 +2309,13 @@ let editingTradeId = null;
 let currentScreenshotBase64 = '';
 let editingChallengeId = null;
 let editingChallengeColor = '#6f8163';
-
+let journalViewMode = 'edit';
+let editingReminderId = null;
+let editingHabitId = null;
+let editingHabitColor = '#6f8163';
+let editingHabitDays = [];
+let editingChallengeDos = [];
+let editingChallengeDonts = [];
 function uid() { return Math.random().toString(36).slice(2, 10); }
 
 function defaultState() {
@@ -1869,7 +2335,10 @@ function defaultState() {
     fixCompletions: {},
     learning: { categories: [cat1, cat2], items: [], words: {} },
     trading: { trades: [] },
-    challenges: { items: [] }
+    challenges: { items: [] },
+    reminders: [],
+    habits: [],
+    habitLog: {}
   };
 }
 
@@ -2001,21 +2470,56 @@ function normalize(s) {
       })).filter(t => t.symbol) : [];
   
   out.trading = { trades };
+
   // Challenges
-const challengeRaw = (s && s.challenges && Array.isArray(s.challenges.items)) ? s.challenges.items : [];
-out.challenges = {
-  items: challengeRaw.map(c => ({
-    id: c.id || uid(),
-    title: c.title || '',
-    description: c.description || '',
-    duration: Math.max(1, parseInt(c.duration) || 30),
-    startDate: c.startDate || todayISO(),
-    color: c.color || CHALLENGE_COLORS[0],
-    completedDays: Array.isArray(c.completedDays)
-      ? c.completedDays.filter(n => Number.isFinite(n) && n >= 1) : [],
-    createdAt: c.createdAt || new Date().toISOString()
-  })).filter(c => c.title)
-};
+  const challengeRaw = (s && s.challenges && Array.isArray(s.challenges.items)) ? s.challenges.items : [];
+  out.challenges = {
+    items: challengeRaw.map(c => ({
+      id: c.id || uid(),
+      title: c.title || '',
+      description: c.description || '',
+      duration: Math.max(1, parseInt(c.duration) || 30),
+      startDate: c.startDate || todayISO(),
+      color: c.color || CHALLENGE_COLORS[0],
+      completedDays: Array.isArray(c.completedDays)
+        ? c.completedDays.filter(n => Number.isFinite(n) && n >= 1) : [],
+      createdAt: c.createdAt || new Date().toISOString(),
+      dos: Array.isArray(c.dos) ? c.dos.map(r => ({ id: r.id || uid(), text: r.text || '' })).filter(r => r.text) : [],
+      donts: Array.isArray(c.donts) ? c.donts.map(r => ({ id: r.id || uid(), text: r.text || '' })).filter(r => r.text) : [],
+      dayChecks: (c.dayChecks && typeof c.dayChecks === 'object') ? c.dayChecks : {}
+    })).filter(c => c.title)
+  };
+
+  // Reminders
+  const remRaw = (s && Array.isArray(s.reminders)) ? s.reminders : [];
+  out.reminders = remRaw.map(r => ({
+    id: r.id || uid(),
+    title: (r.title || '').trim(),
+    notes: r.notes || '',
+    dueDate: r.dueDate || todayISO(),
+    dueTime: r.dueTime || '',
+    category: r.category || '',
+    recurring: r.recurring || 'never',
+    completed: !!r.completed,
+    completedAt: r.completedAt || null,
+    createdAt: r.createdAt || new Date().toISOString()
+  })).filter(r => r.title);
+
+  // Habits
+  const habRaw = (s && Array.isArray(s.habits)) ? s.habits : [];
+  out.habits = habRaw.map(h => ({
+    id: h.id || uid(),
+    title: (h.title || '').trim(),
+    description: h.description || '',
+    color: h.color || '#6f8163',
+    frequency: ['daily','weekly','specific'].includes(h.frequency) ? h.frequency : 'daily',
+    targetPerWeek: Math.max(1, parseInt(h.targetPerWeek) || 5),
+    specificDays: Array.isArray(h.specificDays) ? h.specificDays.filter(d => d >= 0 && d <= 6) : [],
+    archived: !!h.archived,
+    createdAt: h.createdAt || new Date().toISOString()
+  })).filter(h => h.title);
+
+  out.habitLog = (s && typeof s.habitLog === 'object' && s.habitLog) ? s.habitLog : {};
 
   return out;
 }
@@ -2549,11 +3053,14 @@ function switchTo(tab) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 document.querySelectorAll('.tab').forEach(btn => {
-  btn.addEventListener('click', () => switchTo(btn.dataset.tab));
+  btn.addEventListener('click', () => {
+    if (btn.dataset.tab === 'journal') journalViewMode = 'edit';
+    switchTo(btn.dataset.tab);
+  });
 });
 
 /* ============================================================
-   TODAY
+   TODAY — FIXED: removed orphan }); and mountRichEditor('todayFeltHost')
    ============================================================ */
 function getCurrentAffirmation() {
   const list = state.affirmations.length ? state.affirmations : DEFAULT_AFFIRMATIONS;
@@ -2562,7 +3069,6 @@ function getCurrentAffirmation() {
 
 function renderToday() {
   const now = new Date();
-  const iso = todayISO();
   const dayName = todayDayName();
 
   document.getElementById('heroDate').textContent =
@@ -2580,29 +3086,13 @@ function renderToday() {
   if (!fromTemplate) { srcBadge.style.display = ''; srcBadge.textContent = 'Customized'; }
   else srcBadge.style.display = 'none';
 
+  renderTodayReminders();
+  renderTodayHabits();
   renderTodayChecklist(dayName);
   renderTodayFixes();
   renderTodayChallenges();
   renderTodayWordMini();
   renderTodayRecentLearning();
-
-  const entry = state.journal[iso] || {};
-  renderMoodRow('todayMoodRow', entry.mood, m => {
-    setJournalField('mood', m);
-    renderToday();
-  });
-
-  mountRichEditor('todayFeltHost', {
-    placeholder: 'How does today feel so far?',
-    initial: entry.felt || '',
-    onChange: html => {
-      const e = ensureEntry(iso);
-      e.felt = html;
-      e.updated = new Date().toISOString();
-      saveSoon();
-      showSaveFloat();
-    }
-  });
 }
 
 function renderTodayChecklist(dayName) {
@@ -3061,7 +3551,6 @@ function handleScreenshotUpload(ev) {
   reader.onload = (e) => {
     const img = new Image();
     img.onload = () => {
-      // Compress the image to save localStorage space
       const canvas = document.createElement('canvas');
       const MAX_WIDTH = 800;
       const MAX_HEIGHT = 800;
@@ -3069,32 +3558,22 @@ function handleScreenshotUpload(ev) {
       let height = img.height;
 
       if (width > height) {
-        if (width > MAX_WIDTH) {
-          height *= MAX_WIDTH / width;
-          width = MAX_WIDTH;
-        }
+        if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
       } else {
-        if (height > MAX_HEIGHT) {
-          width *= MAX_HEIGHT / height;
-          height = MAX_HEIGHT;
-        }
+        if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
       }
       canvas.width = width;
       canvas.height = height;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, width, height);
-      
-      // Convert to JPEG base64 with 0.6 quality
       currentScreenshotBase64 = canvas.toDataURL('image/jpeg', 0.6);
-      
-      // Update preview
       document.getElementById('tradeScreenshotImg').src = currentScreenshotBase64;
       document.getElementById('tradeScreenshotPreview').style.display = 'block';
     };
     img.src = e.target.result;
   };
   reader.readAsDataURL(file);
-  ev.target.value = ''; // Reset input
+  ev.target.value = '';
 }
 
 function removeScreenshot() {
@@ -3134,28 +3613,21 @@ function calcTradeFinancials() {
   const buyNet = buyShareAmt + buyComm + buySebon + dpBuy;
   const sellNet = sellShareAmt - sellComm - sellSebon - dpSell;
   
-  // CGT (5% on profit)
   const grossProfit = sellShareAmt - buyShareAmt;
   const cgt = grossProfit > 0 ? grossProfit * 0.05 : 0;
   const finalSellNet = sellNet - cgt;
   
   const netPnl = finalSellNet - buyNet;
 
-  // Update UI
   document.getElementById('calcBuyShareAmt').textContent = formatRs(buyShareAmt);
   document.getElementById('calcSellShareAmt').textContent = formatRs(sellShareAmt);
-  
   document.getElementById('calcBuyComm').textContent = formatRs(buyComm);
   document.getElementById('calcSellComm').textContent = formatRs(sellComm);
-  
   document.getElementById('calcBuySebon').textContent = formatRs(buySebon);
   document.getElementById('calcSellSebon').textContent = formatRs(sellSebon);
-  
   document.getElementById('calcBuyDp').textContent = formatRs(dpBuy);
   document.getElementById('calcSellDp').textContent = formatRs(dpSell);
-  
   document.getElementById('calcSellCgt').textContent = formatRs(cgt);
-  
   document.getElementById('calcBuyNet').textContent = formatRs(buyNet);
   document.getElementById('calcSellNet').textContent = formatRs(finalSellNet);
   
@@ -3289,7 +3761,6 @@ function openTradeModal(id) {
     currentScreenshotBase64 = '';
   }
 
-  // Update screenshot preview UI
   if (currentScreenshotBase64) {
     document.getElementById('tradeScreenshotImg').src = currentScreenshotBase64;
     document.getElementById('tradeScreenshotPreview').style.display = 'block';
@@ -3378,6 +3849,7 @@ function deleteTradeFromList(id) {
 }
 
 RENDERERS.trading = renderTrading;
+
 /* ============================================================
    CHALLENGES
    ============================================================ */
@@ -3434,17 +3906,22 @@ function renderChallenges() {
 
     const dayButtons = [];
     for (let i = 1; i <= c.duration; i++) {
-      const isDone = (c.completedDays || []).includes(i);
+       const isDone = (c.completedDays || []).includes(i);
       const isToday = s.todayDayNum === i;
       const dayIso = challengeDayDate(c, i);
       const isFuture = dayIso > today;
+      const rules = getChallengeRules(c);
+      const checks = (c.dayChecks && c.dayChecks[i]) || {};
+      const checkedCount = rules.filter(r => checks[r.id]).length;
+      const isPartial = rules.length > 0 && checkedCount > 0 && !isDone;
       const classes = ['challenge-day'];
       if (isDone) classes.push('done');
+      else if (isPartial) classes.push('partial');
       if (isToday) classes.push('today');
       if (isFuture) classes.push('future');
       const style = isDone ? `background:${c.color};color:#fff;border-color:${c.color};` : '';
-      dayButtons.push(`<button class="${classes.join(' ')}" style="${style}" ${isFuture ? 'disabled' : ''} onclick="toggleChallengeDay('${c.id}', ${i})" title="Day ${i}">${i}</button>`);
-    }
+      const clickHandler = rules.length > 0 ? '' : `onclick="toggleChallengeDay('${c.id}', ${i})"`;
+      dayButtons.push(`<button class="${classes.join(' ')}" style="${style}" ${isFuture ? 'disabled' : ''} ${clickHandler} title="Day ${i}">${i}</button>`); }
 
     return `
       <div class="challenge-card" style="--challenge-color: ${c.color}">
@@ -3485,9 +3962,26 @@ function renderChallenges() {
         <div class="challenge-day-grid">
           ${dayButtons.join('')}
         </div>
+            ${(() => {
+          const rules = getChallengeRules(c);
+          if (!rules.length || s.todayDayNum === null) return '';
+          const checks = (c.dayChecks && c.dayChecks[s.todayDayNum]) || {};
+          const checkedCount = rules.filter(r => checks[r.id]).length;
+          return `
+            <div class="challenge-rules">
+              <div class="challenge-rules-title">Today's rules · Day ${s.todayDayNum}</div>
+              ${rules.map(r => `
+                <label class="challenge-rule ${r.type}">
+                  <input type="checkbox" ${checks[r.id] ? 'checked' : ''} onchange="toggleChallengeRule('${c.id}', ${s.todayDayNum}, '${r.id}')">
+                  <span class="rule-label">${escapeHtml(r.text)}</span>
+                </label>
+              `).join('')}
+              <div class="challenge-rule-progress">${checkedCount}/${rules.length} ${checkedCount === rules.length ? '✓ Day complete' : 'complete to finish today'}</div>
+            </div>`;
+        })()}
         <div class="challenge-actions-row">
-          ${showTodayBtn ? `<button class="challenge-today-btn" onclick="completeChallengeToday('${c.id}')">✓ Complete Day ${s.todayDayNum} today</button>` : ''}
-          ${todayDone ? `<div class="challenge-done-badge">✓ Day ${s.todayDayNum} done — see you tomorrow</div>` : ''}
+          ${getChallengeRules(c).length === 0 && showTodayBtn ? `<button class="challenge-today-btn" onclick="completeChallengeToday('${c.id}')">✓ Complete Day ${s.todayDayNum} today</button>` : ''}
+          ${getChallengeRules(c).length === 0 && todayDone ? `<div class="challenge-done-badge">✓ Day ${s.todayDayNum} done — see you tomorrow</div>` : ''}
           <button class="ghost" onclick="openChallengeModal('${c.id}')">Edit</button>
           <button class="ghost danger" onclick="deleteChallengeFromList('${c.id}')">Delete</button>
         </div>
@@ -3535,14 +4029,20 @@ function openChallengeModal(id) {
     document.getElementById('challengeDesc').value = c.description || '';
     document.getElementById('challengeDuration').value = c.duration || 30;
     document.getElementById('challengeStart').value = c.startDate || todayISO();
-    editingChallengeColor = c.color || CHALLENGE_COLORS[0];
+        editingChallengeColor = c.color || CHALLENGE_COLORS[0];
+    editingChallengeDos = (c.dos || []).map(r => ({ id: r.id, text: r.text }));
+    editingChallengeDonts = (c.donts || []).map(r => ({ id: r.id, text: r.text }));
   } else {
     document.getElementById('challengeTitle').value = '';
     document.getElementById('challengeDesc').value = '';
     document.getElementById('challengeDuration').value = 30;
     document.getElementById('challengeStart').value = todayISO();
     editingChallengeColor = CHALLENGE_COLORS[0];
+    editingChallengeDos = [];
+    editingChallengeDonts = [];
   }
+  renderChallengeRuleInputs('do', editingChallengeDos);
+  renderChallengeRuleInputs('dont', editingChallengeDonts);
   renderChallengeColorPicker();
   document.getElementById('challengeModal').classList.add('open');
   setTimeout(() => document.getElementById('challengeTitle').focus(), 60);
@@ -3574,6 +4074,8 @@ function saveChallenge() {
 
   if (editingChallengeId) {
     const c = state.challenges.items.find(x => x.id === editingChallengeId);
+    const cleanDos = editingChallengeDos.filter(r => r.text.trim()).map(r => ({ id: r.id, text: r.text.trim() }));
+    const cleanDonts = editingChallengeDonts.filter(r => r.text.trim()).map(r => ({ id: r.id, text: r.text.trim() }));
     if (c) {
       c.title = title;
       c.description = description;
@@ -3581,15 +4083,23 @@ function saveChallenge() {
       c.startDate = startDate;
       c.color = editingChallengeColor;
       c.completedDays = (c.completedDays || []).filter(d => d >= 1 && d <= duration);
+      c.dos = cleanDos;
+      c.donts = cleanDonts;
+      if (!c.dayChecks) c.dayChecks = {};
     }
     toast('Challenge updated');
   } else {
+    const cleanDos = editingChallengeDos.filter(r => r.text.trim()).map(r => ({ id: r.id, text: r.text.trim() }));
+    const cleanDonts = editingChallengeDonts.filter(r => r.text.trim()).map(r => ({ id: r.id, text: r.text.trim() }));
     state.challenges.items.push({
       id: uid(),
       title, description, duration, startDate,
       color: editingChallengeColor,
       completedDays: [],
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      dos: cleanDos,
+      donts: cleanDonts,
+      dayChecks: {}
     });
     toast('Challenge started');
   }
@@ -3647,6 +4157,7 @@ function renderTodayChallenges() {
     `;
   }).join('');
 }
+
 /* ============================================================
    LEARNING — WORDS
    ============================================================ */
@@ -4119,12 +4630,17 @@ function currentJournalDate() {
 function ensureEntry(iso) {
   if (!state.journal[iso]) {
     state.journal[iso] = {
-      mood: null, energy: 3,
-      felt: '', happened: '', learned: '',
-      gratitude: ['', '', ''],
+      mood: null, energy: 3, stress: 3,
+      emotionFeeling: '', emotionStrongest: '', weighingMind: '',
+      expImportant: '', expBest: '', expDifficult: '', expProud: '', expOneMoment: '',
+      awareLearned: '', awareReacted: '', awareThought: '', awareAvoiding: '', awareUnderstand: '',
+      growthProgress: '', growthFuture: '', growthBetter: '', growthImprove: '', growthBecoming: '',
+      gratitude: ['', '', ''], gratBetter: '', gratOrdinary: '', gratWished: '',
+      letOver: '', letForgive: '', letWorry: '', letAccept: '', letLeave: '',
+      intentAccomplish: '', intentFeel: '', intentPromise: '', intentAction: '',
+      mindFreewrite: '',
       tags: [], updated: null
     };
-
   }
   const e = state.journal[iso];
   if (!Array.isArray(e.gratitude)) e.gratitude = ['', '', ''];
@@ -4132,10 +4648,9 @@ function ensureEntry(iso) {
   if (!Array.isArray(e.tags)) e.tags = [];
   return e;
 }
-  function getEntry(iso) {
+function getEntry(iso) {
   return state.journal[iso] || null;
 }
-  
 function showSaveIndicator() {
   const el = document.getElementById('saveIndicator');
   if (!el) return;
@@ -4143,58 +4658,67 @@ function showSaveIndicator() {
   clearTimeout(el._t);
   el._t = setTimeout(() => el.classList.remove('show'), 1200);
 }
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = (el.scrollHeight) + 'px';
+}
+
+function saveJournalField(field, value) {
+  const en = ensureEntry(currentJournalDate());
+  en[field] = value;
+  en.updated = new Date().toISOString();
+  saveSoon(); showSaveIndicator();
+}
+
 function loadJournal() {
   const iso = currentJournalDate();
-  const e = getEntry(iso);
-  const d = e || { mood: null, energy: 3, felt: '', happened: '', learned: '', gratitude: ['', '', ''], tags: [] };
+  const e = ensureEntry(iso);
   document.getElementById('journalDayLabel').textContent = dayNameFromISO(iso);
 
-  renderMoodRow('journalMoodRow', d.mood, m => {
+  renderMoodRow('journalMoodRow', e.mood, m => {
     const en = ensureEntry(currentJournalDate());
-    en.mood = m; en.updated = new Date().toISOString();
-    saveState(); loadJournal();
+    en.mood = m; en.updated = new Date().toISOString(); saveState(); loadJournal();
   });
-  renderEnergyRow('energyRow', d.energy, v => {
+  renderEnergyRow('energyRow', e.energy, v => {
     const en = ensureEntry(currentJournalDate());
-    en.energy = v; en.updated = new Date().toISOString();
-    saveState(); loadJournal();
+    en.energy = v; en.updated = new Date().toISOString(); saveState(); loadJournal();
+  });
+  renderStressRow('stressRow', e.stress, v => {
+    const en = ensureEntry(currentJournalDate());
+    en.stress = v; en.updated = new Date().toISOString(); saveState(); loadJournal();
   });
 
-  mountRichEditor('jFeltHost', {
-    placeholder: 'Today I felt…',
-    initial: d.felt || '',
-    onChange: html => {
-      const en = ensureEntry(currentJournalDate());
-      en.felt = html;
-      en.updated = new Date().toISOString();
-      saveSoon(); showSaveIndicator();
-    }
-  });
-  mountRichEditor('jHappenedHost', {
-    placeholder: 'Today…',
-    initial: d.happened || '',
-    onChange: html => {
-      const en = ensureEntry(currentJournalDate());
-      en.happened = html;
-      en.updated = new Date().toISOString();
-      saveSoon(); showSaveIndicator();
-    }
-  });
-  mountRichEditor('jLearnedHost', {
-    placeholder: 'I noticed that…',
-    initial: d.learned || '',
-    onChange: html => {
-      const en = ensureEntry(currentJournalDate());
-      en.learned = html;
-      en.updated = new Date().toISOString();
-      saveSoon(); showSaveIndicator();
-    }
+  const fields = [
+    'emotionFeeling', 'emotionStrongest', 'weighingMind',
+    'expImportant', 'expBest', 'expDifficult', 'expProud', 'expOneMoment',
+    'awareLearned', 'awareReacted', 'awareThought', 'awareAvoiding', 'awareUnderstand',
+    'growthProgress', 'growthFuture', 'growthBetter', 'growthImprove', 'growthBecoming',
+    'gratBetter', 'gratOrdinary', 'gratWished',
+    'letOver', 'letForgive', 'letWorry', 'letAccept', 'letLeave',
+    'intentAccomplish', 'intentFeel', 'intentPromise', 'intentAction',
+    'mindFreewrite'
+  ];
+
+  fields.forEach(f => {
+    const idMap = {
+      emotionFeeling:'jEmotionFeeling', emotionStrongest:'jEmotionStrongest', weighingMind:'jWeighingMind',
+      expImportant:'jExpImportant', expBest:'jExpBest', expDifficult:'jExpDifficult', expProud:'jExpProud', expOneMoment:'jExpOneMoment',
+      awareLearned:'jAwareLearned', awareReacted:'jAwareReacted', awareThought:'jAwareThought', awareAvoiding:'jAwareAvoiding', awareUnderstand:'jAwareUnderstand',
+      growthProgress:'jGrowthProgress', growthFuture:'jGrowthFuture', growthBetter:'jGrowthBetter', growthImprove:'jGrowthImprove', growthBecoming:'jGrowthBecoming',
+      gratBetter:'jGratBetter', gratOrdinary:'jGratOrdinary', gratWished:'jGratWished',
+      letOver:'jLetOver', letForgive:'jLetForgive', letWorry:'jLetWorry', letAccept:'jLetAccept', letLeave:'jLetLeave',
+      intentAccomplish:'jIntentAccomplish', intentFeel:'jIntentFeel', intentPromise:'jIntentPromise', intentAction:'jIntentAction',
+      mindFreewrite:'jMindFreewrite'
+    };
+    const el = document.getElementById(idMap[f]);
+    if (el) { el.value = e[f] || ''; autoResize(el); }
   });
 
-  document.getElementById('g1').value = (d.gratitude && d.gratitude[0]) || '';
-  document.getElementById('g2').value = (d.gratitude && d.gratitude[1]) || '';
-  document.getElementById('g3').value = (d.gratitude && d.gratitude[2]) || '';
-  renderTags();
+  document.getElementById('g1').value = e.gratitude[0] || '';
+  document.getElementById('g2').value = e.gratitude[1] || '';
+  document.getElementById('g3').value = e.gratitude[2] || '';
+   renderTags();
+  applyJournalViewMode();
 }
 
 function saveGratitude(idx, value) {
@@ -4204,12 +4728,6 @@ function saveGratitude(idx, value) {
   saveSoon(); showSaveIndicator();
 }
 function saveJournalNow() {
-  // Force any pending editor changes to commit first
-  ['jFeltHost', 'jHappenedHost', 'jLearnedHost'].forEach(id => {
-    const ed = getRichEditor(id);
-    if (ed) ed.commitIfChanged();
-  });
-
   const iso = currentJournalDate();
   if (!state.journal[iso]) {
     toast('Nothing to save yet');
@@ -4236,7 +4754,16 @@ function deleteCurrentJournal() {
   if (!state.journal[iso]) { toast('Nothing to delete'); return; }
   if (!confirm('Delete the journal entry for ' + shortDate(iso) + '?')) return;
   delete state.journal[iso];
-  saveState(); loadJournal(); renderArchive();
+  saveState();
+  renderArchive();
+  // Move to a different date so loadJournal doesn't recreate the deleted entry
+  const today = todayISO();
+  if (iso === today) {
+    document.getElementById('journalDate').value = today; // stay on today
+    loadJournal(); // will recreate today — acceptable if user was on today
+  } else {
+    goToday(); // move away, deleted date stays gone
+  }
   toast('Entry deleted');
 }
 function renderMoodRow(containerId, current, onPick) {
@@ -4252,6 +4779,8 @@ function renderMoodRow(containerId, current, onPick) {
     });
   });
 }
+
+/* FIXED: renderEnergyRow and renderStressRow are now separate top-level functions */
 function renderEnergyRow(containerId, current, onPick) {
   const el = document.getElementById(containerId);
   if (!el) return;
@@ -4264,10 +4793,26 @@ function renderEnergyRow(containerId, current, onPick) {
     btn.addEventListener('click', () => onPick(i + 1));
   });
 }
+
+function renderStressRow(containerId, current, onPick) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const labels = ['None', 'Mild', 'Moderate', 'High', 'Severe'];
+  el.innerHTML = [1,2,3,4,5].map(v => `
+    <button class="mood-btn ${current === v ? 'active' : ''}" title="${labels[v-1]}"
+            style="font-size:13px;font-weight:600">${v}</button>
+  `).join('');
+  el.querySelectorAll('.mood-btn').forEach((btn, i) => {
+    btn.addEventListener('click', () => onPick(i + 1));
+  });
+}
+
+/* FIXED: null guard — no tagWrap/tagInput in current HTML, so early return */
 function renderTags() {
   const e = getEntry(currentJournalDate());
   const wrap = document.getElementById('tagWrap');
   const input = document.getElementById('tagInput');
+  if (!wrap || !input) return;
   wrap.querySelectorAll('.tag').forEach(t => t.remove());
   if (!e || !Array.isArray(e.tags)) return;
   e.tags.forEach((tag, i) => {
@@ -4295,6 +4840,487 @@ function handleTagKey(ev) {
   ev.target.value = '';
   renderTags();
 }
+function setJournalViewMode(mode) {
+  journalViewMode = mode;
+  applyJournalViewMode();
+}
+
+function applyJournalViewMode() {
+  const journal = document.getElementById('journal');
+  const banner = document.getElementById('journalViewBanner');
+  const isView = journalViewMode === 'view';
+
+  if (banner) banner.style.display = isView ? 'flex' : 'none';
+
+  // Reset everything to visible
+  journal.querySelectorAll('.journal-q').forEach(q => q.style.display = '');
+  journal.querySelectorAll('.gratitude-item').forEach(g => g.style.display = '');
+  journal.querySelectorAll('.journal-section-card').forEach(c => c.style.display = '');
+
+  if (!isView) return;
+
+  // Hide empty textarea questions
+  journal.querySelectorAll('.journal-q').forEach(q => {
+    const ta = q.querySelector('textarea');
+    if (!ta || !ta.value.trim()) q.style.display = 'none';
+  });
+
+  // Hide empty gratitude lines
+  journal.querySelectorAll('.gratitude-item').forEach(g => {
+    const inp = g.querySelector('input');
+    if (!inp || !inp.value.trim()) g.style.display = 'none';
+  });
+
+  // Hide section cards that end up with nothing visible
+  journal.querySelectorAll('.journal-section-card').forEach(card => {
+    const h3 = card.querySelector('h3');
+    // Always keep "1. Emotional Check-in" (mood/energy/stress are useful context)
+    if (h3 && /^1\./.test(h3.textContent.trim())) return;
+
+    const anyQ = Array.from(card.querySelectorAll('.journal-q'))
+      .some(q => q.style.display !== 'none');
+    const anyGrat = Array.from(card.querySelectorAll('.gratitude-item'))
+      .some(g => g.style.display !== 'none');
+    // "Things on My Mind" has a bare textarea, not wrapped in .journal-q
+    const freeTA = card.querySelector('#jMindFreewrite');
+    const freeHasText = freeTA && freeTA.value.trim();
+
+    if (!anyQ && !anyGrat && !freeHasText) card.style.display = 'none';
+  });
+}
+/* ============================================================
+   REMINDERS
+   ============================================================ */
+function getReminderUrgency(r) {
+  if (r.completed) return 'completed';
+  const today = todayISO();
+  if (r.dueDate < today) return 'overdue';
+  if (r.dueDate === today) return 'due-today';
+  const tmr = new Date(today + 'T12:00:00');
+  tmr.setDate(tmr.getDate() + 1);
+  if (r.dueDate === localISO(tmr)) return 'tomorrow';
+  return 'upcoming';
+}
+function getReminderChip(r) {
+  const u = getReminderUrgency(r);
+  if (u === 'overdue') {
+    const days = Math.round((new Date(todayISO()) - new Date(r.dueDate + 'T12:00:00')) / 86400000);
+    return { cls: 'overdue', text: days === 1 ? '1 day late' : days + ' days late' };
+  }
+  if (u === 'due-today') return { cls: 'today', text: 'Due today' };
+  if (u === 'tomorrow') return { cls: 'tomorrow', text: 'Tomorrow' };
+  return { cls: 'upcoming', text: prettyShort(r.dueDate) };
+}
+function reminderItemHTML(r) {
+  const u = getReminderUrgency(r);
+  const chip = getReminderChip(r);
+  const cat = r.category ? `<span class="reminder-chip category">${escapeHtml(r.category)}</span>` : '';
+  const time = r.dueTime ? ' · ' + r.dueTime : '';
+  return `
+    <div class="reminder-item ${u} ${r.completed ? 'completed' : ''}">
+      <div class="reminder-check ${r.completed ? 'checked' : ''}" onclick="toggleReminderComplete('${r.id}')">✓</div>
+      <div class="reminder-body">
+        <div class="reminder-head">
+          <span class="reminder-title">${escapeHtml(r.title)}</span>
+          <span class="reminder-chip ${chip.cls}">${chip.text}</span>
+          ${cat}
+        </div>
+        <div class="reminder-due">${shortDate(r.dueDate)}${time}</div>
+        ${r.notes ? `<div class="reminder-notes">${escapeHtml(r.notes)}</div>` : ''}
+        <div class="reminder-actions">
+          <button class="ghost" onclick="openReminderModal('${r.id}')">Edit</button>
+        </div>
+      </div>
+    </div>`;
+}
+function renderTodayReminders() {
+  const el = document.getElementById('todayReminders');
+  if (!el) return;
+  const today = todayISO();
+  const all = (state.reminders || []).slice();
+  const overdue = [], dueToday = [], upcoming = [], doneToday = [];
+  const weekAhead = new Date(today + 'T12:00:00');
+  weekAhead.setDate(weekAhead.getDate() + 7);
+  all.forEach(r => {
+    if (r.completed) {
+      if (r.completedAt && r.completedAt.slice(0, 10) === today) doneToday.push(r);
+      return;
+    }
+    if (r.dueDate < today) overdue.push(r);
+    else if (r.dueDate === today) dueToday.push(r);
+    else if (new Date(r.dueDate + 'T12:00:00') <= weekAhead) upcoming.push(r);
+  });
+  overdue.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+  upcoming.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+
+  if (!overdue.length && !dueToday.length && !upcoming.length && !doneToday.length) {
+    el.innerHTML = `<div class="empty-note">Nothing due. <button class="ghost" style="padding:2px 6px;font-size:13px" onclick="openReminderModal()">+ Add a reminder</button></div>`;
+    return;
+  }
+  let html = '';
+  if (overdue.length) html += `<div class="reminders-group-label overdue">Overdue (${overdue.length})</div>` + overdue.map(reminderItemHTML).join('');
+  if (dueToday.length) html += `<div class="reminders-group-label">Today (${dueToday.length})</div>` + dueToday.map(reminderItemHTML).join('');
+  if (upcoming.length) html += `<div class="reminders-group-label">Next 7 days (${upcoming.length})</div>` + upcoming.slice(0, 4).map(reminderItemHTML).join('')
+    + (upcoming.length > 4 ? `<div style="font-size:12.5px;color:var(--ink-faint);padding:6px 4px">+ ${upcoming.length - 4} more upcoming</div>` : '');
+  if (doneToday.length) html += `<div class="reminders-group-label">Done today (${doneToday.length})</div>` + doneToday.map(reminderItemHTML).join('');
+  el.innerHTML = html;
+}
+function renderRemindersPage() {
+  const el = document.getElementById('remindersList');
+  if (!el) return;
+  const today = todayISO();
+  const all = (state.reminders || []).slice().sort((a, b) => {
+    if (a.completed !== b.completed) return a.completed ? 1 : -1;
+    return a.dueDate.localeCompare(b.dueDate);
+  });
+  if (!all.length) {
+    el.innerHTML = `<div class="word-empty"><strong>No reminders yet.</strong>Add anything with a deadline — assignments, bills, meetings.<div><button class="primary" onclick="openReminderModal()">+ Add your first reminder</button></div></div>`;
+    return;
+  }
+  el.innerHTML = all.map(reminderItemHTML).join('');
+}
+function openReminderModal(id) {
+  editingReminderId = id || null;
+  const r = id ? state.reminders.find(x => x.id === id) : null;
+  document.getElementById('reminderModalTitle').textContent = r ? 'Edit reminder' : 'New reminder';
+  document.getElementById('reminderDeleteBtn').style.display = r ? '' : 'none';
+  if (r) {
+    document.getElementById('reminderTitle').value = r.title;
+    document.getElementById('reminderDate').value = r.dueDate;
+    document.getElementById('reminderTime').value = r.dueTime || '';
+    document.getElementById('reminderCategory').value = r.category || '';
+    document.getElementById('reminderRecurring').value = r.recurring || 'never';
+    document.getElementById('reminderNotes').value = r.notes || '';
+  } else {
+    document.getElementById('reminderTitle').value = '';
+    document.getElementById('reminderDate').value = todayISO();
+    document.getElementById('reminderTime').value = '';
+    document.getElementById('reminderCategory').value = '';
+    document.getElementById('reminderRecurring').value = 'never';
+    document.getElementById('reminderNotes').value = '';
+  }
+  document.getElementById('reminderModal').classList.add('open');
+  setTimeout(() => document.getElementById('reminderTitle').focus(), 60);
+}
+function closeReminderModal() {
+  document.getElementById('reminderModal').classList.remove('open');
+  editingReminderId = null;
+}
+function saveReminder() {
+  const title = document.getElementById('reminderTitle').value.trim();
+  if (!title) { toast('Please add a title'); document.getElementById('reminderTitle').focus(); return; }
+  const dueDate = document.getElementById('reminderDate').value || todayISO();
+  const dueTime = document.getElementById('reminderTime').value || '';
+  const category = document.getElementById('reminderCategory').value || '';
+  const recurring = document.getElementById('reminderRecurring').value || 'never';
+  const notes = document.getElementById('reminderNotes').value;
+  if (editingReminderId) {
+    const r = state.reminders.find(x => x.id === editingReminderId);
+    if (r) { r.title = title; r.dueDate = dueDate; r.dueTime = dueTime; r.category = category; r.recurring = recurring; r.notes = notes; }
+    toast('Reminder updated');
+  } else {
+    state.reminders.push({ id: uid(), title, dueDate, dueTime, category, recurring, notes, completed: false, completedAt: null, createdAt: new Date().toISOString() });
+    toast('Reminder added');
+  }
+  saveState(); closeReminderModal(); renderTodayReminders(); renderRemindersPage();
+}
+function deleteReminder() {
+  if (!editingReminderId) return;
+  if (!confirm('Delete this reminder?')) return;
+  state.reminders = state.reminders.filter(r => r.id !== editingReminderId);
+  saveState(); closeReminderModal(); renderTodayReminders(); renderRemindersPage();
+  toast('Reminder deleted');
+}
+function toggleReminderComplete(id) {
+  const r = state.reminders.find(x => x.id === id);
+  if (!r) return;
+  r.completed = !r.completed;
+  r.completedAt = r.completed ? new Date().toISOString() : null;
+  if (r.completed && r.recurring !== 'never') {
+    const next = new Date(r.dueDate + 'T12:00:00');
+    if (r.recurring === 'weekly') next.setDate(next.getDate() + 7);
+    else if (r.recurring === 'monthly') next.setMonth(next.getMonth() + 1);
+    else if (r.recurring === 'quarterly') next.setMonth(next.getMonth() + 3);
+    state.reminders.push({
+      id: uid(), title: r.title, dueDate: localISO(next), dueTime: r.dueTime,
+      category: r.category, recurring: r.recurring, notes: r.notes,
+      completed: false, completedAt: null, createdAt: new Date().toISOString()
+    });
+    toast('Completed · next one scheduled');
+  }
+  saveState(); renderTodayReminders(); renderRemindersPage();
+}
+
+/* ============================================================
+   HABITS
+   ============================================================ */
+function habitScheduledToday(h) {
+  if (h.frequency === 'daily' || h.frequency === 'weekly') return true;
+  if (h.frequency === 'specific') {
+    const dow = (new Date().getDay() + 6) % 7;
+    return (h.specificDays || []).includes(dow);
+  }
+  return true;
+}
+function computeHabitStreak(h) {
+  const today = new Date(todayISO() + 'T12:00:00');
+  let streak = 0;
+  for (let i = 0; i < 365; i++) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const iso = localISO(d);
+    if (h.frequency === 'specific') {
+      const dow = (d.getDay() + 6) % 7;
+      if (!(h.specificDays || []).includes(dow)) continue;
+    }
+    const done = !!(state.habitLog[iso] && state.habitLog[iso][h.id]);
+    if (done) { streak++; }
+    else {
+      if (i === 0) continue;
+      break;
+    }
+  }
+  return streak;
+}
+function countHabitThisWeek(h) {
+  const today = new Date();
+  const dow = (today.getDay() + 6) % 7;
+  let count = 0;
+  for (let d = 0; d <= dow; d++) {
+    const dd = new Date(today);
+    dd.setDate(today.getDate() - (dow - d));
+    const iso = localISO(dd);
+    if (state.habitLog[iso] && state.habitLog[iso][h.id]) count++;
+  }
+  return count;
+}
+function toggleHabitToday(id) {
+  const today = todayISO();
+  if (!state.habitLog[today]) state.habitLog[today] = {};
+  state.habitLog[today][id] = !state.habitLog[today][id];
+  if (!state.habitLog[today][id]) delete state.habitLog[today][id];
+  saveState(); renderTodayHabits(); renderHabitsPage();
+}
+function toggleHabitOnDate(id, iso) {
+  if (!state.habitLog[iso]) state.habitLog[iso] = {};
+  state.habitLog[iso][id] = !state.habitLog[iso][id];
+  if (!state.habitLog[iso][id]) delete state.habitLog[iso][id];
+  saveState(); renderTodayHabits(); renderHabitsPage();
+}
+function habitItemHTML(h, doneToday) {
+  const streak = computeHabitStreak(h);
+  let meta = '';
+  if (h.frequency === 'weekly') meta = countHabitThisWeek(h) + '/' + h.targetPerWeek + ' this week';
+  else if (h.frequency === 'specific') meta = (h.specificDays || []).map(d => ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][d]).join(' · ');
+  else meta = 'Daily';
+  return `
+    <div class="habit-item ${doneToday ? 'done' : ''}">
+      <div class="habit-check ${doneToday ? 'checked' : ''}" style="${doneToday ? 'background:' + h.color + ';border-color:' + h.color : ''}" onclick="toggleHabitToday('${h.id}')">✓</div>
+      <div class="habit-body">
+        <div class="habit-title">${escapeHtml(h.title)}</div>
+        <div class="habit-meta">${escapeHtml(meta)}</div>
+      </div>
+      ${streak > 0 ? `<div class="habit-streak">🔥 ${streak}</div>` : ''}
+    </div>`;
+}
+function renderTodayHabits() {
+  const el = document.getElementById('todayHabits');
+  if (!el) return;
+  const today = todayISO();
+  const habits = (state.habits || []).filter(h => !h.archived && habitScheduledToday(h));
+  const log = state.habitLog[today] || {};
+  if (!habits.length) {
+    el.innerHTML = `<div class="empty-note">No habits scheduled today. <button class="ghost" style="padding:2px 6px;font-size:13px" onclick="openHabitModal()">+ Add a habit</button></div>`;
+    return;
+  }
+  el.innerHTML = habits.map(h => habitItemHTML(h, !!log[h.id])).join('');
+}
+function renderHabitsPage() {
+  const headerEl = document.getElementById('habitWeekHeader');
+  const gridEl = document.getElementById('habitsGrid');
+  if (!headerEl || !gridEl) return;
+  const habits = (state.habits || []).filter(h => !h.archived);
+  const today = new Date();
+  const dow = (today.getDay() + 6) % 7;
+  const weekDates = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - dow + i);
+    weekDates.push({ iso: localISO(d), dow: i });
+  }
+  const dayNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  headerEl.innerHTML = `<div></div>${dayNames.map(d => `<div class="day-label">${d}</div>`).join('')}<div style="text-align:right;font-size:10px">This week</div>`;
+  if (!habits.length) {
+    gridEl.innerHTML = `<div class="word-empty" style="text-align:center"><strong>No habits yet.</strong>Build small daily rituals — they compound.<div><button class="primary" onclick="openHabitModal()">+ Add your first habit</button></div></div>`;
+    return;
+  }
+  gridEl.innerHTML = habits.map(h => {
+    const cells = weekDates.map(({ iso, dow: d }) => {
+      const scheduled = h.frequency !== 'specific' || (h.specificDays || []).includes(d);
+      const done = !!(state.habitLog[iso] && state.habitLog[iso][h.id]);
+      const isFuture = iso > todayISO();
+      const isToday = iso === todayISO();
+      if (!scheduled) return `<div class="habit-day-cell" style="opacity:.15;cursor:not-allowed"></div>`;
+      const cls = ['habit-day-cell'];
+      if (done) cls.push('done');
+      if (isFuture) cls.push('future');
+      if (isToday) cls.push('today');
+      const style = done ? `background:${h.color};border-color:${h.color}` : '';
+      return `<div class="${cls.join(' ')}" style="${style}" onclick="${isFuture ? '' : `toggleHabitOnDate('${h.id}', '${iso}')`}">${done ? '✓' : ''}</div>`;
+    }).join('');
+    const weekCount = countHabitThisWeek(h);
+    const target = h.frequency === 'weekly' ? h.targetPerWeek : h.frequency === 'specific' ? (h.specificDays || []).length : 7;
+    return `
+      <div class="habit-weekly-row" style="cursor:pointer" onclick="openHabitModal('${h.id}')">
+        <div class="habit-title-cell">
+          <span class="title">${escapeHtml(h.title)}</span>
+          <span class="freq">${h.frequency === 'daily' ? 'Daily' : h.frequency === 'weekly' ? h.targetPerWeek + 'x/week' : 'Specific days'}</span>
+        </div>
+        ${cells}
+        <div class="habit-weekly-stat">
+          <span class="num">${weekCount}/${target}</span>
+          <span class="label">${weekCount >= target ? '✓ done' : 'this week'}</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+function updateHabitFreqUI() {
+  const f = document.getElementById('habitFrequency').value;
+  document.getElementById('habitWeeklyGroup').style.display = f === 'weekly' ? '' : 'none';
+  document.getElementById('habitSpecificGroup').style.display = f === 'specific' ? '' : 'none';
+}
+function renderHabitDayPicker() {
+  const el = document.getElementById('habitDayPicker');
+  const names = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  el.innerHTML = names.map((n, i) => `<button type="button" class="${editingHabitDays.includes(i) ? 'active' : ''}" data-day="${i}">${n}</button>`).join('');
+  el.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const d = parseInt(btn.dataset.day);
+      if (editingHabitDays.includes(d)) editingHabitDays = editingHabitDays.filter(x => x !== d);
+      else editingHabitDays.push(d);
+      renderHabitDayPicker();
+    });
+  });
+}
+function renderHabitColorPicker() {
+  const el = document.getElementById('habitColorPicker');
+  if (!el) return;
+  el.innerHTML = CHALLENGE_COLORS.map(c => `<button type="button" class="color-dot ${editingHabitColor === c ? 'active' : ''}" data-color="${c}" style="background:${c}"></button>`).join('');
+  el.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => { editingHabitColor = btn.dataset.color; renderHabitColorPicker(); });
+  });
+}
+function openHabitModal(id) {
+  editingHabitId = id || null;
+  const h = id ? state.habits.find(x => x.id === id) : null;
+  document.getElementById('habitModalTitle').textContent = h ? 'Edit habit' : 'New habit';
+  document.getElementById('habitDeleteBtn').style.display = h ? '' : 'none';
+  if (h) {
+    document.getElementById('habitTitle').value = h.title;
+    document.getElementById('habitDesc').value = h.description || '';
+    document.getElementById('habitFrequency').value = h.frequency;
+    document.getElementById('habitTarget').value = h.targetPerWeek;
+    editingHabitDays = (h.specificDays || []).slice();
+    editingHabitColor = h.color;
+  } else {
+    document.getElementById('habitTitle').value = '';
+    document.getElementById('habitDesc').value = '';
+    document.getElementById('habitFrequency').value = 'daily';
+    document.getElementById('habitTarget').value = 5;
+    editingHabitDays = [];
+    editingHabitColor = CHALLENGE_COLORS[0];
+  }
+  updateHabitFreqUI();
+  renderHabitDayPicker();
+  renderHabitColorPicker();
+  document.getElementById('habitModal').classList.add('open');
+  setTimeout(() => document.getElementById('habitTitle').focus(), 60);
+}
+function closeHabitModal() {
+  document.getElementById('habitModal').classList.remove('open');
+  editingHabitId = null;
+}
+function saveHabit() {
+  const title = document.getElementById('habitTitle').value.trim();
+  if (!title) { toast('Please add a title'); document.getElementById('habitTitle').focus(); return; }
+  const description = document.getElementById('habitDesc').value.trim();
+  const frequency = document.getElementById('habitFrequency').value;
+  const targetPerWeek = Math.max(1, parseInt(document.getElementById('habitTarget').value) || 5);
+  if (frequency === 'specific' && !editingHabitDays.length) { toast('Pick at least one day'); return; }
+  const data = { title, description, frequency, targetPerWeek, specificDays: editingHabitDays.slice(), color: editingHabitColor };
+  if (editingHabitId) {
+    const h = state.habits.find(x => x.id === editingHabitId);
+    if (h) Object.assign(h, data);
+    toast('Habit updated');
+  } else {
+    state.habits.push({ id: uid(), ...data, archived: false, createdAt: new Date().toISOString() });
+    toast('Habit created');
+  }
+  saveState(); closeHabitModal(); renderTodayHabits(); renderHabitsPage();
+}
+function deleteHabit() {
+  if (!editingHabitId) return;
+  if (!confirm('Archive this habit? Its history is kept.')) return;
+  const h = state.habits.find(x => x.id === editingHabitId);
+  if (h) h.archived = true;
+  saveState(); closeHabitModal(); renderTodayHabits(); renderHabitsPage();
+  toast('Habit archived');
+}
+
+/* ============================================================
+   CHALLENGE RULES (Do's / Don'ts)
+   ============================================================ */
+function getChallengeRules(c) {
+  const dos = (c.dos || []).map(r => ({ ...r, type: 'do' }));
+  const donts = (c.donts || []).map(r => ({ ...r, type: 'dont' }));
+  return [...dos, ...donts];
+}
+function renderChallengeRuleInputs(type, list) {
+  const el = document.getElementById(type === 'do' ? 'challengeDosList' : 'challengeDontsList');
+  el.innerHTML = list.map((r, i) => `
+    <div class="challenge-rule-input-row">
+      <input value="${escapeAttr(r.text)}" placeholder="${type === 'do' ? 'e.g. Write 500+ words' : 'e.g. Skip a day'}" oninput="updateChallengeRuleInput('${type}', ${i}, this.value)">
+      <button type="button" onclick="removeChallengeRuleInput('${type}', ${i})" title="Remove">×</button>
+    </div>
+  `).join('');
+}
+function addChallengeRule(type) {
+  const list = type === 'do' ? editingChallengeDos : editingChallengeDonts;
+  list.push({ id: uid(), text: '' });
+  renderChallengeRuleInputs(type, list);
+  setTimeout(() => {
+    const rows = document.querySelectorAll(type === 'do' ? '#challengeDosList input' : '#challengeDontsList input');
+    if (rows.length) rows[rows.length - 1].focus();
+  }, 20);
+}
+function updateChallengeRuleInput(type, idx, val) {
+  const list = type === 'do' ? editingChallengeDos : editingChallengeDonts;
+  if (list[idx]) list[idx].text = val;
+}
+function removeChallengeRuleInput(type, idx) {
+  const list = type === 'do' ? editingChallengeDos : editingChallengeDonts;
+  list.splice(idx, 1);
+  renderChallengeRuleInputs(type, list);
+}
+function toggleChallengeRule(id, dayNum, ruleId) {
+  const c = state.challenges.items.find(x => x.id === id);
+  if (!c) return;
+  if (!c.dayChecks) c.dayChecks = {};
+  if (!c.dayChecks[dayNum]) c.dayChecks[dayNum] = {};
+  c.dayChecks[dayNum][ruleId] = !c.dayChecks[dayNum][ruleId];
+  if (!c.dayChecks[dayNum][ruleId]) delete c.dayChecks[dayNum][ruleId];
+  const rules = getChallengeRules(c);
+  const checks = c.dayChecks[dayNum] || {};
+  const allChecked = rules.length > 0 && rules.every(r => checks[r.id]);
+  if (!Array.isArray(c.completedDays)) c.completedDays = [];
+  const idx = c.completedDays.indexOf(dayNum);
+  if (allChecked && idx < 0) c.completedDays.push(dayNum);
+  else if (!allChecked && idx >= 0) c.completedDays.splice(idx, 1);
+  saveState();
+  renderChallenges();
+  renderTodayChallenges();
+}
+
 RENDERERS.journal = loadJournal;
 
 /* ============================================================
@@ -4303,35 +5329,22 @@ RENDERERS.journal = loadJournal;
 function currentWeekKey() { return currentReviewWeek || isoWeekKey(new Date()); }
 function ensureReview(key) {
   if (!state.reviews[key]) {
-    state.reviews[key] = { wins:'', challenges:'', lessons:'', intentions:'', updated:null };
+    state.reviews[key] = { best: '', challenged: '', accomplished: '', patterns: '', neglected: '', focusNext: '', updated: null };
   }
   return state.reviews[key];
 }
+
 function renderReview() {
   const key = currentWeekKey();
   const r = ensureReview(key);
   document.getElementById('reviewWeekLabel').textContent = key + ' · ' + weekRangeLabel(key);
 
-  mountRichEditor('rWinsHost', {
-    placeholder: 'This week I…',
-    initial: r.wins || '',
-    onChange: html => { ensureReview(currentWeekKey()).wins = html; saveSoon(); }
-  });
-  mountRichEditor('rChallengesHost', {
-    placeholder: 'This week was difficult because…',
-    initial: r.challenges || '',
-    onChange: html => { ensureReview(currentWeekKey()).challenges = html; saveSoon(); }
-  });
-  mountRichEditor('rLessonsHost', {
-    placeholder: "I'm learning that…",
-    initial: r.lessons || '',
-    onChange: html => { ensureReview(currentWeekKey()).lessons = html; saveSoon(); }
-  });
-  mountRichEditor('rIntentionsHost', {
-    placeholder: 'Next week I will…',
-    initial: r.intentions || '',
-    onChange: html => { ensureReview(currentWeekKey()).intentions = html; saveSoon(); }
-  });
+  mountRichEditor('rBestHost', { placeholder: 'This week…', initial: r.best || '', onChange: html => { ensureReview(currentWeekKey()).best = html; saveSoon(); } });
+  mountRichEditor('rChallengedHost', { placeholder: 'The hardest part was…', initial: r.challenged || '', onChange: html => { ensureReview(currentWeekKey()).challenged = html; saveSoon(); } });
+  mountRichEditor('rAccomplishedHost', { placeholder: 'I got done…', initial: r.accomplished || '', onChange: html => { ensureReview(currentWeekKey()).accomplished = html; saveSoon(); } });
+  mountRichEditor('rPatternsHost', { placeholder: 'I noticed that when…', initial: r.patterns || '', onChange: html => { ensureReview(currentWeekKey()).patterns = html; saveSoon(); } });
+  mountRichEditor('rNeglectedHost', { placeholder: 'I didn\'t have time for…', initial: r.neglected || '', onChange: html => { ensureReview(currentWeekKey()).neglected = html; saveSoon(); } });
+  mountRichEditor('rFocusNextHost', { placeholder: 'Next week, priority one is…', initial: r.focusNext || '', onChange: html => { ensureReview(currentWeekKey()).focusNext = html; saveSoon(); } });
 }
 function shiftReviewWeek(delta) {
   const range = isoWeekRange(currentWeekKey());
@@ -4396,8 +5409,7 @@ function renderArchive() {
     const e = entries[k];
     if (activeMoodFilter && e.mood !== activeMoodFilter) return false;
     if (!q) return true;
-    const blob = [k, stripTags(e.felt), stripTags(e.happened), stripTags(e.learned),
-                  (e.gratitude || []).join(' '), (e.tags || []).join(' ')]
+    const blob = [k, stripTags(e.mindFreewrite), (e.gratitude || []).join(' '), (e.tags || []).join(' ')]
       .join(' ').toLowerCase();
     return blob.includes(q);
   });
@@ -4411,7 +5423,7 @@ function renderArchive() {
   list.innerHTML = filtered.map(k => {
     const e = entries[k];
     const mood = MOODS.find(m => m.key === e.mood);
-    const snippet = (stripTags(e.felt) || stripTags(e.happened) || stripTags(e.learned) || '').trim().slice(0, 160);
+    const snippet = (stripTags(e.mindFreewrite) || stripTags(e.emotionFeeling) || '').trim().slice(0, 160);
     return `
       <div class="entry" onclick="openEntry('${k}')">
         <div class="entry-mood">${mood ? mood.emoji : '·'}</div>
@@ -4436,7 +5448,7 @@ function computeStreak() {
     const iso = localISO(d);
     const e = state.journal[iso];
     if (!e) break;
-    const hasContent = (e.felt || e.happened || e.learned || (e.gratitude || []).some(g => g && g.trim()));
+    const hasContent = (e.mindFreewrite || e.emotionFeeling || (e.gratitude || []).some(g => g && g.trim()));
     if (!hasContent) break;
     streak++;
     d.setDate(d.getDate() - 1);
@@ -4445,6 +5457,7 @@ function computeStreak() {
   return streak;
 }
 function openEntry(iso) {
+  journalViewMode = 'view';
   switchTo('journal');
   document.getElementById('journalDate').value = iso;
   loadJournal();
@@ -4491,18 +5504,65 @@ function printWeek() {
 }
 function printJournal() {
   const iso = currentJournalDate();
-  const e = getEntry(iso) || { mood:null, energy:null, felt:'', happened:'', learned:'', gratitude:[], tags:[] };
+  const e = ensureEntry(iso);
   const mood = MOODS.find(m => m.key === e.mood);
+  
+  const genText = (label, val) => val ? `<div style="margin-bottom:10px"><strong>${label}</strong><br>${escapeHtml(val).replace(/\n/g, '<br>')}</div>` : '';
+  
   const area = document.getElementById('printArea');
   area.innerHTML = `
     <div class="print-entry">
-      <h1>Journal</h1>
-      <div class="meta">${prettyDate(iso)}${mood ? ' · ' + mood.emoji + ' ' + mood.label : ''}${e.energy ? ' · Energy ' + e.energy + '/5' : ''}</div>
-      <h2>How I felt</h2>${storedToHTML(e.felt) || '<p>—</p>'}
-      <h2>What important happened</h2>${storedToHTML(e.happened) || '<p>—</p>'}
-      <h2>What I learned</h2>${storedToHTML(e.learned) || '<p>—</p>'}
-      <h2>Gratitude</h2>
-      ${(e.gratitude || []).map(g => `<div class="print-check">• ${escapeHtml(g || '—')}</div>`).join('')}
+      <h1>Daily Journal</h1>
+      <div class="meta">${prettyDate(iso)}${mood ? ' · ' + mood.emoji + ' ' + mood.label : ''} · Energy: ${e.energy}/5 · Stress: ${e.stress}/5</div>
+      
+      <h2>1. Emotional Check-in</h2>
+      ${genText('How am I feeling today?', e.emotionFeeling)}
+      ${genText('What emotion was strongest today?', e.emotionStrongest)}
+      ${genText('Is there something weighing on my mind?', e.weighingMind)}
+      
+      <h2>2. Today's Experience</h2>
+      ${genText('Three most important things that happened:', e.expImportant)}
+      ${genText('Best moment of my day:', e.expBest)}
+      ${genText('Difficult or uncomfortable moment:', e.expDifficult)}
+      ${genText('Something that made me proud:', e.expProud)}
+      ${genText('If I remember only one moment:', e.expOneMoment)}
+      
+      <h2>3. Self-Awareness</h2>
+      ${genText('What I learned about myself:', e.awareLearned)}
+      ${genText('Did I react the way I wanted to?', e.awareReacted)}
+      ${genText('Thought that occupied my mind most:', e.awareThought)}
+      ${genText('Is there anything I am avoiding?', e.awareAvoiding)}
+      ${genText('What I need to understand about myself:', e.awareUnderstand)}
+      
+      <h2>4. Growth and Progress</h2>
+      ${genText('Meaningful progress I made:', e.growthProgress)}
+      ${genText('Did I spend time on something important for my future?', e.growthFuture)}
+      ${genText('What I could have done better:', e.growthBetter)}
+      ${genText('One thing I want to improve tomorrow:', e.growthImprove)}
+      ${genText('Am I moving closer to the person I want to become?', e.growthBecoming)}
+      
+      <h2>5. Gratitude</h2>
+      ${(e.gratitude || []).map(g => `<div style="margin-bottom:4px">• ${escapeHtml(g || '—')}</div>`).join('')}
+      ${genText('Who made my day a little better?', e.gratBetter)}
+      ${genText('What ordinary thing did I enjoy today?', e.gratOrdinary)}
+      ${genText('Something I have today that I once wished for:', e.gratWished)}
+      
+      <h2>6. Letting Go</h2>
+      ${genText('What am I overthinking?', e.letOver)}
+      ${genText('Something I need to forgive myself for:', e.letForgive)}
+      ${genText('What I need to stop worrying about tonight:', e.letWorry)}
+      ${genText('Something outside my control that I need to accept:', e.letAccept)}
+      ${genText('What I want to leave behind today:', e.letLeave)}
+      
+      <h2>7. Tomorrow's Intention</h2>
+      ${genText('Most important thing to accomplish tomorrow:', e.intentAccomplish)}
+      ${genText('How I want to feel tomorrow:', e.intentFeel)}
+      ${genText('One promise I want to keep to myself:', e.intentPromise)}
+      ${genText('One small action that would make tomorrow better:', e.intentAction)}
+      
+      <h2>Things on My Mind</h2>
+      ${genText('', e.mindFreewrite)}
+      
       ${(e.tags && e.tags.length) ? `<h2>Tags</h2><p>${e.tags.map(escapeHtml).join(', ')}</p>` : ''}
     </div>
   `;
@@ -4513,12 +5573,14 @@ function printReview() {
   const r = ensureReview(key);
   const area = document.getElementById('printArea');
   area.innerHTML = `
-    <h1>Weekly Review</h1>
+    <h1>Weekly Reflection</h1>
     <div class="meta">${key} · ${weekRangeLabel(key)}</div>
-    <h2>Wins</h2>${storedToHTML(r.wins) || '<p>—</p>'}
-    <h2>Challenges</h2>${storedToHTML(r.challenges) || '<p>—</p>'}
-    <h2>Lessons</h2>${storedToHTML(r.lessons) || '<p>—</p>'}
-    <h2>Intentions for next week</h2>${storedToHTML(r.intentions) || '<p>—</p>'}
+    <h2>What was the best thing about this week?</h2>${storedToHTML(r.best) || '<p>—</p>'}
+    <h2>What challenged me the most?</h2>${storedToHTML(r.challenged) || '<p>—</p>'}
+    <h2>What did I accomplish?</h2>${storedToHTML(r.accomplished) || '<p>—</p>'}
+    <h2>What patterns did I notice in my mood and energy?</h2>${storedToHTML(r.patterns) || '<p>—</p>'}
+    <h2>What did I neglect?</h2>${storedToHTML(r.neglected) || '<p>—</p>'}
+    <h2>What should I focus on next week?</h2>${storedToHTML(r.focusNext) || '<p>—</p>'}
   `;
   window.print();
 }
@@ -4598,7 +5660,6 @@ function importJSON(ev) {
   reader.onload = e => {
     try {
       const parsed = JSON.parse(e.target.result);
-      // Support both new {data: state} format and legacy state-directly format
       const rawData = parsed && parsed.data ? parsed.data : parsed;
       if (!rawData || typeof rawData !== 'object') {
         throw new Error('File does not contain a valid backup.');
@@ -4622,6 +5683,13 @@ function importJSON(ev) {
   reader.readAsText(file);
   ev.target.value = '';
 }
+
+/* FIXED: review field/* ============================================================
+   FIXED: exportMarkdown — review field names corrected
+   (was reading r.wins/r.challenges/r.lessons/r.intentions,
+    but reviews actually use best/challenged/accomplished/
+    patterns/neglected/focusNext)
+   ============================================================ */
 function exportMarkdown() {
   let md = '# Writing Palace\n\n*Exported ' + prettyDate(todayISO()) + '*\n\n';
 
@@ -4707,27 +5775,31 @@ function exportMarkdown() {
     const e = state.journal[k];
     const mood = MOODS.find(m => m.key === e.mood);
     md += '### ' + k + ' — ' + dayNameFromISO(k) + (mood ? ' ' + mood.emoji : '') + '\n\n';
-    if (e.energy) md += '*Energy: ' + e.energy + '/5*\n\n';
-    if (e.felt) md += '**How I felt**\n\n' + stripTags(e.felt) + '\n\n';
-    if (e.happened) md += '**What important happened**\n\n' + stripTags(e.happened) + '\n\n';
-    if (e.learned) md += '**What I learned**\n\n' + stripTags(e.learned) + '\n\n';
+    if (e.energy) md += '*Energy: ' + e.energy + '/5 · Stress: ' + (e.stress||3) + '/5*\n\n';
+    if (e.emotionFeeling) md += '**How I am feeling:** ' + e.emotionFeeling + '\n\n';
+    if (e.expImportant) md += '**Important things:** ' + e.expImportant + '\n\n';
+    if (e.expBest) md += '**Best moment:** ' + e.expBest + '\n\n';
+    if (e.awareLearned) md += '**Learned about myself:** ' + e.awareLearned + '\n\n';
+    if (e.growthProgress) md += '**Progress:** ' + e.growthProgress + '\n\n';
     if ((e.gratitude || []).some(g => g)) {
-      md += '**Gratitude**\n\n';
+      md += '**Gratitude:**\n';
       e.gratitude.filter(Boolean).forEach(g => { md += '- ' + g + '\n'; });
       md += '\n';
     }
-    if (e.tags && e.tags.length) md += '*Tags: ' + e.tags.join(', ') + '*\n\n';
-    md += '\n';
+    if (e.mindFreewrite) md += '**Things on my mind:** ' + e.mindFreewrite + '\n\n';
+    if (e.tags && e.tags.length) md += '**Tags:** ' + e.tags.join(', ') + '\n\n';
   });
 
   md += '\n---\n\n## Weekly Reviews\n\n';
   Object.keys(state.reviews).sort().reverse().forEach(k => {
     const r = state.reviews[k];
     md += '### ' + k + '\n\n';
-    if (r.wins) md += '**Wins**\n\n' + stripTags(r.wins) + '\n\n';
-    if (r.challenges) md += '**Challenges**\n\n' + stripTags(r.challenges) + '\n\n';
-    if (r.lessons) md += '**Lessons**\n\n' + stripTags(r.lessons) + '\n\n';
-    if (r.intentions) md += '**Intentions**\n\n' + stripTags(r.intentions) + '\n\n';
+    if (r.best)         md += '**Best thing**\n\n'        + stripTags(r.best)         + '\n\n';
+    if (r.challenged)   md += '**Biggest challenge**\n\n' + stripTags(r.challenged)   + '\n\n';
+    if (r.accomplished) md += '**Accomplished**\n\n'      + stripTags(r.accomplished) + '\n\n';
+    if (r.patterns)     md += '**Patterns**\n\n'          + stripTags(r.patterns)     + '\n\n';
+    if (r.neglected)    md += '**Neglected**\n\n'         + stripTags(r.neglected)    + '\n\n';
+    if (r.focusNext)    md += '**Focus next week**\n\n'   + stripTags(r.focusNext)    + '\n\n';
   });
 
   const blob = new Blob([md], { type: 'text/markdown' });
@@ -4739,6 +5811,7 @@ function exportMarkdown() {
   URL.revokeObjectURL(url);
   toast('Markdown exported');
 }
+
 function resetAll() {
   if (!confirm('This will erase ALL plans, journal entries, fixes, learning, trading, and reviews. Continue?')) return;
   if (!confirm('Really erase everything? This cannot be undone.')) return;
@@ -4767,7 +5840,9 @@ document.addEventListener('keydown', ev => {
     if (document.getElementById('categoryModal').classList.contains('open')) closeCategoryModal();
     if (document.getElementById('tradeModal').classList.contains('open')) closeTradeModal();
     if (document.getElementById('lightbox').classList.contains('open')) closeLightbox();
-    if (document.getElementById('challengeModal').classList.contains('open')) closeChallengeModal();
+     if (document.getElementById('challengeModal').classList.contains('open')) closeChallengeModal();
+    if (document.getElementById('reminderModal').classList.contains('open')) closeReminderModal();
+    if (document.getElementById('habitModal').classList.contains('open')) closeHabitModal();
   }
 });
 
@@ -4778,6 +5853,8 @@ function renderAll() {
   renderToday();
   renderWeek();
   renderFixes();
+  renderRemindersPage();
+  renderHabitsPage();
   renderTrading();
   renderChallenges();
   renderLearning();
@@ -4785,6 +5862,7 @@ function renderAll() {
   renderReview();
   renderArchive();
 }
+
 /* ============================================================
    PWA — SERVICE WORKER + INSTALL PROMPT
    ============================================================ */
@@ -4826,6 +5904,7 @@ async function promptInstall() {
   const group = document.getElementById('installGroup');
   if (group) group.style.display = 'none';
 }
+
 /* ============================================================
    INIT
    ============================================================ */
@@ -4848,7 +5927,7 @@ function init() {
   document.getElementById('settingsBtn').addEventListener('click', openSettings);
   document.getElementById('importFile').addEventListener('change', importJSON);
 
-  ['affirmationModal','settingsModal','fixModal','learnModal','categoryModal','tradeModal','challengeModal'].forEach(id => {
+    ['affirmationModal','settingsModal','fixModal','learnModal','categoryModal','tradeModal','challengeModal','reminderModal','habitModal'].forEach(id => {
     const el = document.getElementById(id);
     el.addEventListener('click', ev => {
       if (ev.target.id === id) {
@@ -4858,7 +5937,9 @@ function init() {
         if (id === 'learnModal') closeLearnModal();
         if (id === 'categoryModal') closeCategoryModal();
         if (id === 'tradeModal') closeTradeModal();
-        if (id === 'challengeModal') closeChallengeModal();
+             if (id === 'challengeModal') closeChallengeModal();
+        if (id === 'reminderModal') closeReminderModal();
+        if (id === 'habitModal') closeHabitModal();
       }
     });
   });
