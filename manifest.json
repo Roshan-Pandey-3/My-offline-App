@@ -1,7 +1,8 @@
 {
-  "name": "Writing Palace",
-  "short_name": "Writing Palace",
-  "description": "Planner, journal, learning, trading, challenges — all offline, all yours.",
+  "name": "RoshanOS — Giving Direction to Life",
+  "short_name": "RoshanOS",
+  "description": "A personal operating system — journal, planner, habits, reminders, challenges, learning, and trading. All offline, all yours.",
+  "id": "/",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
